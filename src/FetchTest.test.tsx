@@ -11,12 +11,18 @@ const MOCK_TODO_RESPONSE = {
   completed: false,
 };
 
+//test시 mock server 사용
+
 const server = setupServer(
   http.get("/todos/:id", ({ params }) => {
     const { id } = params;
     return HttpResponse.json({ ...MOCK_TODO_RESPONSE, id: Number(id) });
   })
 );
+
+//It’s common to enable the interception in the beforeAll hook of your testing framework. Below you can find an example of how to do that with Jest.
+//https://mswjs.io/docs/api/setup-server/listen
+
 beforeAll(() => {
   server.listen(); // worker.start() 대신 server.listen() 사용
 });
